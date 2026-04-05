@@ -33,19 +33,20 @@ import unittest
 
 
 class TwoSum:
-    def two_sum_dict(self, nums: list[int], target: int) -> list[int] | str:
+    def two_sum_dict(self, nums: list[int], target: int) -> list[int]:
         """
         This solution include a dict to store the mapping of number and it's index
         Time complexity: O(n)
         Space complexity: O(n)
         """
         result = {}
-        for i in range(len(nums)):
-            rem = target - nums[i]
+        for i, num in enumerate(nums):
+            rem = target - num
             if rem in result:
                 return [result[rem], i]
-            result[nums[i]] = i
-        return "Not Found"
+            result[num] = i
+        # Since the problem guarantees exactly one solution, this line is unreachable but to make this funtion ready for any input, we can raise an exception if no solution is found.
+        raise ValueError("No two sum solution found")
 
 
 class TestTwoSum(unittest.TestCase):
@@ -59,12 +60,11 @@ class TestTwoSum(unittest.TestCase):
         actual = self.two_sum.two_sum_dict(nums, target)
         self.assertEqual(actual, expected)
 
-    def test_two_sum_dict_when_invaild_input_given__expect_not_found(self):
+    def test_two_sum_dict_when_invaild_input_given__expect_exception(self):
         nums = [2, 6, 11, 15]
         target = 9
-        expected = "Not Found"
-        actual = self.two_sum.two_sum_dict(nums, target)
-        self.assertEqual(actual, expected)
+        with self.assertRaises(ValueError):
+            self.two_sum.two_sum_dict(nums, target)
 
 
 if __name__ == "__main__":
