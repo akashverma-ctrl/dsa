@@ -1,0 +1,13 @@
+Why can we use append() on a list created with [] even though we didn't call list()?
+
+Answer:
+Because [] directly creates an instance of Python's built-in list type. The list constructor is not skipped conceptually; Python simply uses a dedicated bytecode instruction (BUILD_LIST) instead of performing a runtime function call. The resulting object is still a normal list instance and therefore has access to all list methods such as append(), pop(), and extend().
+
+[] vs list()
+
+Both create objects of type list.
+[] is a list literal and uses the BUILD_LIST bytecode instruction.
+list() performs a name lookup and a function/class call before creating the list.
+[] is slightly faster and more readable.
+[] cannot be affected by shadowing the name list.
+The resulting object is identical in both cases, so all list methods (append, pop, extend, etc.) are available regardless of how the list was created.
